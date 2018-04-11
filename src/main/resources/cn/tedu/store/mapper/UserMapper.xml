@@ -23,4 +23,10 @@
         SELECT id, username, password, email, phone, image, gender, create_time, modified_time
         FROM tedu_store.t_user WHERE username = #{username}
     </select>
+    <select id="selectByEmail" parameterType="string" resultType="java.lang.Integer">
+        SELECT count(email) FROM tedu_store.t_user WHERE email = #{email}
+    </select>
+    <select id="selectByPhone" parameterType="string" resultType="java.lang.Integer">
+        SELECT count(phone) FROM tedu_store.t_user WHERE phone = #{phone}
+    </select>
 </mapper>

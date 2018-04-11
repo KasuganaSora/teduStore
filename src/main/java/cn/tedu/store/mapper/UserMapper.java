@@ -16,4 +16,13 @@ public interface UserMapper {
      * @return 返回User信息;
      */
     public User getUserByName(String username);
+
+    /**
+     * 检查邮箱是否存在
+     * @param email
+     * @return
+     */
+    public Integer selectByEmail(String email);
+
+    public Integer selectByPhone(String phone);
 }

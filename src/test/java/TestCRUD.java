@@ -36,12 +36,29 @@ public class TestCRUD {
         user.setPhone("188");
         user.setCreateTime(new Date());
         user.setCreateUser("admin");
-        userService.saveUser(user);
+        userService.register(user);
         System.out.println(user.getId());
     }
     @Test
     public void getUserByName() {
         User user = userService.getUserByName("张三");
         System.out.println(user);
+    }
+    @Test
+    public void checkEmail() {
+        boolean b = userService.checkEmail("ls@gmail.com");
+        System.out.println(b);
+        //2018年03月01日
+    }
+
+    @Test
+    public void checkUsername() {
+        boolean b = userService.checkUsername("博丽灵梦");
+        System.out.println(b);
+        if (b) {
+            System.out.println("用户名可以使用");
+        } else {
+            System.out.println("用户名已存在");
+        }
     }
 }
