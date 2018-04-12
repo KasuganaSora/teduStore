@@ -35,10 +35,10 @@
                     <span><img src="${ctx}/images/login/mm.png"></span>
                 </div>
                 <div class="chose">
-                    <input type="checkbox" class="checkbox" id="ck_rmbUser" value="0">自动登录
+                    <input type="checkbox" class="checkbox" id="ck_rmbUser">自动登录
                     <span>忘记密码？</span>
                 </div>
-                <input class="button_login" type="button" value="登录" id="bt-login" onclick="Save()"/>
+                <input class="button_login" type="button" value="登录" id="bt-login" />
             </div>
         </form>
     </div>
@@ -177,10 +177,17 @@
             "type":"POST",
             "dataType":"json",
             "success":function(data){
-                alert(data.message);
+                if (data.status == "0") {
+                    $("#showResult").text("用户名或密码错误");
+                    $("#showResult").css("color","red");
+                    return;
+                }
+                Save();
+                if (confirm("登录成功,是否离开当前页面?") == true) {
+                    location.href='${ctx}/main/showIndex.do';
+                }
             }
         });
-		location.href='http://www.baidu.com';
     });
 </script>
 <script type="text/javascript">
@@ -195,7 +202,8 @@
 
     //记住用户名密码
     function Save() {
-        if ($("#ck_rmbUser").attr("checked")) {
+        //判断当前复选框内是否被选中;
+        if ($("#ck_rmbUser").prop("checked")) {
             var str_username = $("#username").val();
             console.log(str_username);
             var str_password = $("#password").val();

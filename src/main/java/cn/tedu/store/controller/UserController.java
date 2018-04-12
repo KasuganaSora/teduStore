@@ -19,7 +19,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/user/")
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     @Qualifier("userService")
@@ -34,6 +34,18 @@ public class UserController {
     @RequestMapping("showLogin.do")
     public ModelAndView showLogin(ModelAndView modelAndView) {
         modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
+    @RequestMapping("showPersonalInfo.do")
+    public ModelAndView showPersonalInfo(ModelAndView modelAndView) {
+        modelAndView.setViewName("personage");
+        return modelAndView;
+    }
+
+    @RequestMapping("showPersonPassword.do")
+    public ModelAndView showPersonPassword(ModelAndView modelAndView) {
+        modelAndView.setViewName("personal_password");
         return modelAndView;
     }
 
@@ -79,7 +91,7 @@ public class UserController {
         String password = jsonObject.getString("lpwd");
         try {
             User user = UserService.login(username, password);
-            result.setStatus(0);
+            result.setStatus(1);
             result.setMessage("登录成功");
             session.setAttribute("user", user);
         } catch (UserNotFoundException | PasswordNotMatchException e) {
@@ -149,6 +161,22 @@ public class UserController {
         }
     }
 
+    @RequestMapping("updatePassword.do")
+    public String updatePassword(HttpSession session , String pwdInfo) {
+        ResponseResult<Void> result = new ResponseResult<>();
+        JSONObject jsonObject = JSONObject.parseObject(pwdInfo);
+        String oldPwd = jsonObject.getString("oldPwd");
+        String newPwd = jsonObject.getString("newPwd");
+        try {
+            UserService.updatePassword(this.getId(session), oldPwd, newPwd);
+            result.setStatus(1);
+            result.setMessage("修改密码成功");
+        } catch (UserNotFoundException | PasswordNotMatchException e) {
+            result.setStatus(0);
+            result.setMessage(e.getMessage());
+        }
+        return JSONObject.toJSONString(result);
+    }
 
 
 

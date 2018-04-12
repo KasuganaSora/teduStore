@@ -28,7 +28,7 @@ public class UserService implements IUserService {
         User user = getUserByName(username);
         if (user == null) {
             throw new UserNotFoundException("用户不存在");
-        } else if (!user.getUsername().equals(username)) {
+        } else if (!user.getPassword().equals(password)) {
             throw new PasswordNotMatchException("密码错误");
         }
         return user;
@@ -37,6 +37,25 @@ public class UserService implements IUserService {
     @Override
     public User getUserByName(String username) {
         return userMapper.getUserByName(username);
+    }
+
+    @Transactional
+    @Override
+    public void updateUserById(User user) {
+        userMapper.updateUserById(user);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updatePassword(Integer id, String oldPwd, String newPwd) {
+        User user = userMapper.getUserById(id);
+        if (user == null) {
+            throw new UserNotFoundException("用户不存在");
+        } else if (!user.getPassword().equals(oldPwd)) {
+            throw new PasswordNotMatchException("原密码错误");
+        }
+        user.setPassword(newPwd);
+        userMapper.updateUserById(user);
     }
 
     @Override

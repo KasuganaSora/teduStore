@@ -24,6 +24,20 @@ public interface IUserService {
     public User getUserByName(String username);
 
     /**
+     * 更新用户;
+     * @param user
+     */
+    public void updateUserById(User user);
+
+    /**
+     *  更新密码;
+     * @param id
+     * @param oldPwd
+     * @param newPwd
+     */
+    public void updatePassword(Integer id, String oldPwd, String newPwd);
+
+    /**
      * 检查email
      * @param email
      * @return

@@ -41,7 +41,7 @@ public class TestCRUD {
     }
     @Test
     public void getUserByName() {
-        User user = userService.getUserByName("张三");
+        User user = userService.getUserByName("博丽灵梦");
         System.out.println(user);
     }
     @Test
@@ -62,18 +62,26 @@ public class TestCRUD {
         }
     }
 
+
     @Test
-    public void get() {
-        int m_x = 100 / 5;
-        int m_y = 100 / 3;
-        for (int x = 1; x <= m_x ; x++) {
-            for (int y = 1; y <= m_y ; y++) {
-                int z = 100 - x - y;
-                if (z % 3 == 0&& 5*x+3*y+z/3==100){
-                    System.out.println(x+","+y+","+z);
-                }
-            }
-        }
+    public void updateUser() {
+        User user = new User();
+        user.setId(1);
+        user.setPassword("112233");
+        user.setPhone("18837130202");
+        user.setModifiedUser("admin");
+        user.setModifiedTime(new Date());
+        userService.updateUserById(user);
+<<<<<<< HEAD
     }
+
+    @Test
+    public void updatePasswordById() {
+        userService.updatePassword(1,"122","123456");
+
+=======
+>>>>>>> b155667df960e6e4d7ec8733b5027c6c08a51dc0
+    }
+
 
 }
