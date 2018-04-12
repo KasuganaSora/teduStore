@@ -8,6 +8,19 @@ public interface IUserService {
      * @param user
      */
     public void register(User user);
+
+    /**
+     * 用户登录
+     * @param username
+     * @return
+     */
+    public User login(String username, String password);
+
+    /**
+     * 通过用户名获得用户信息;
+     * @param username
+     * @return
+     */
     public User getUserByName(String username);
 
     /**

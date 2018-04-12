@@ -1,18 +1,20 @@
-<!DOCTYPE html>
+<%@page pageEncoding="UTF-8" language="java" contentType="text/html; UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="ctx" value="${pageContext.request.getContextPath()}"/>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>学子商城登陆页面</title>
-    <link href="../css/header.css" rel="stylesheet"/>
-    <link href="../css/footer.css" rel="stylesheet"/>
-    <link href="../css/animate.css" rel="stylesheet"/>
-    <link href="../css/login.css" rel="stylesheet"/>
+    <link href="${ctx}/css/header.css" rel="stylesheet"/>
+    <link href="${ctx}/css/footer.css" rel="stylesheet"/>
+    <link href="${ctx}/css/animate.css" rel="stylesheet"/>
+    <link href="${ctx}/css/login.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- 页面顶部-->
 <header id="top">
     <div class="top">
-        <img src="../images/header/logo.png" alt=""/>
+        <img src="${ctx}/images/header/logo.png" alt=""/>
         <span>欢迎登录</span>
     </div>
 </header>
@@ -21,16 +23,16 @@
         <form id="login-form" method="post" name="form1">
             <div class="txt">
                 <p>
-					登录学子商城<span><a href="register.jsp">新用户注册</a></span>
+					登录学子商城<span><a href="${ctx}/user/showRegister.do">新用户注册</a></span>
                 </p>
                 <div class="text">
                     <input type="text" placeholder="请输入您的用户名" name="lname" id="username" required>
-                    <span><img src="../images/login/yhm.png"></span>
+                    <span><img src="${ctx}/images/login/yhm.png"></span>
                 </div>
                 
                 <div class="text">
-                    <input type="password" id="password" placeholder="请输入您的密码" name="lwd" required minlength="6" maxlength="15">
-                    <span><img src="../images/login/mm.png"></span>
+                    <input type="password" id="password" placeholder="请输入您的密码" name="lpwd" required minlength="6" maxlength="15">
+                    <span><img src="${ctx}/images/login/mm.png"></span>
                 </div>
                 <div class="chose">
                     <input type="checkbox" class="checkbox" id="ck_rmbUser" value="0">自动登录
@@ -46,22 +48,22 @@
 <!-- 品质保障，私人定制等-->
 <div id="foot_box">
     <div class="icon1 lf">
-        <img src="../images/footer/icon1.png" alt=""/>
+        <img src="${ctx}/images/footer/icon1.png" alt=""/>
 
         <h3>品质保障</h3>
     </div>
     <div class="icon2 lf">
-        <img src="../images/footer/icon2.png" alt=""/>
+        <img src="${ctx}/images/footer/icon2.png" alt=""/>
 
         <h3>私人定制</h3>
     </div>
     <div class="icon3 lf">
-        <img src="../images/footer/icon3.png" alt=""/>
+        <img src="${ctx}/images/footer/icon3.png" alt=""/>
 
         <h3>学员特供</h3>
     </div>
     <div class="icon4 lf">
-        <img src="../images/footer/icon4.png" alt=""/>
+        <img src="${ctx}/images/footer/icon4.png" alt=""/>
 
         <h3>专属特权</h3>
     </div>
@@ -70,8 +72,8 @@
 <div class="foot_bj">
     <div id="foot">
         <div class="lf">
-            <p class="footer1"><img src="../images/footer/logo.png" alt="" class=" footLogo"/></p>
-            <p class="footer2"><img src="../images/footer/footerFont.png"alt=""/></p>
+            <p class="footer1"><img src="${ctx}/images/footer/logo.png" alt="" class=" footLogo"/></p>
+            <p class="footer2"><img src="${ctx}/images/footer/footerFont.png"alt=""/></p>
             
         </div>
         <div class="foot_left lf" >
@@ -91,27 +93,26 @@
                 <li><a href="#">关于达内</a></li>
                 <li><a href="#">联系我们</a></li>
                 <li>
-                    <img src="../images/footer/wechat.png" alt=""/>
-                    <img src="../images/footer/sinablog.png" alt=""/>
+                    <img src="${ctx}/images/footer/wechat.png" alt=""/>
+                    <img src="${ctx}/images/footer/sinablog.png" alt=""/>
                 </li>
             </ul>
         </div>
         <div class="service">
             <p>学子商城客户端</p>
-            <img src="../images/footer/ios.png" class="lf">
-            <img src="../images/footer/android.png" alt="" class="lf"/>
+            <img src="${ctx}/images/footer/ios.png" class="lf">
+            <img src="${ctx}/images/footer/android.png" alt="" class="lf"/>
         </div>
         <div class="download">
-            <img src="../images/footer/erweima.png">
+            <img src="${ctx}/images/footer/erweima.png">
         </div>
 		<!-- 页面底部-备案号 #footer -->
             <div class="record">
-                &copy;2017 达内集团有限公司 版权所有 京ICP证xxxxxxxxxxx
 			</div>
     </div>
 </div>
-<script src="../js/jquery-3.1.1.min.js"></script>
-<script src="../jquery/jquery.cookie.js"></script>
+<script src="${ctx}/js/jquery-3.1.1.min.js"></script>
+<script src="${ctx}/jquery/jquery.cookie.js"></script>
 <script>
     $("#username").blur(function(){
         var data = $("#username").val();
@@ -122,18 +123,20 @@
         }
         $.ajax({
             type:"POST",
-            url:"/checkUsername.html",
+            url:"${ctx}/user/checkUn.do",
+            dataType :"json",
             data:"username="+data,
             beforeSend:function(XMLHttpRequest)
             {
                 $("#showResult").text("正在查询");
 
             },
-            success:function(msg)
+            success:function(data)
             {
-                if(msg ==="yes"){
+                if(data.status =="0"){
                     $("#showResult").text("该用户名可以被使用");
-                }else if(msg === 'no'){
+                    $("#showResult").css("color","green");
+                }else if(data.status == '1'){
                     $("#showResult").text("该用户名不存在");
                     $("#showResult").css("color","red");
                 }else {
@@ -141,34 +144,43 @@
                     $("#showResult").css("color","red");
                 }
             },
-            error:function()
-            {
+            error:function() {
                 //错误处理
             }
         });
     });
 </script>
 <script>
-    $('#bt-login').click(function(){
-        //读取用户的输入——表单序列化
-        var inputData = $('#login-form').serialize();
-        //异步提交请求，进行验证
-        /*
-		$.ajax({
-            type: 'POST',
-            url: 'data/1_login.php',
-            data: inputData,
-            success: function(txt, msg, xhr){
-                if(txt=='ok'){  //登录成功
-                    var loginName = $('[name="uname"]').val();
-                    sessionStorage['loginName']=loginName;
-                    console.log(loginName);
-                }else{ //登录失败
-                    $('#showResult').html('登录失败！错误消息为：'+txt);
+    /*将表单封装成json*/
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
                 }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
             }
-        }); */
-		location.href='index.html';
+        });
+        return o;
+    };
+    $('#bt-login').click(function(){
+        var formInfo = $("#login-form").serializeObject();
+        var userInfo = JSON.stringify(formInfo);
+        $.ajax({
+            "url":"${ctx}/user/login.do",
+            "data":"userInfo="+userInfo,
+            "type":"POST",
+            "dataType":"json",
+            "success":function(data){
+                alert(data.message);
+            }
+        });
+		location.href='http://www.baidu.com';
     });
 </script>
 <script type="text/javascript">

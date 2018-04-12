@@ -57,7 +57,7 @@
         </div>
         <div class="form-group">
           <label></label>
-          <input type="button" value="提交注册信息" id="bt-register"/>
+          <input type="button" value="提交注册信息" id="bt-register" onclick="register();"/>
         </div>
       </form>
     </div>
@@ -209,7 +209,6 @@
       this.setCustomValidity('');
     }
   }
-  
 
   upwdconfirm.onfocus = function(){
     this.nextElementSibling.innerHTML = '密码长度在6到12位之间';
@@ -265,8 +264,6 @@
               }
           }
       });
-
-
     }
   }
   email.onfocus = function(){
@@ -292,7 +289,6 @@
       if(!data){   //用户没有输入任何内容
         return;
       }
-
         $.ajax({
             "url":"${ctx}/user/checkPhone.do",
             "data":"phone="+$("#phone").val(),
@@ -307,12 +303,43 @@
                 }
             }
         });
-
     }
   }
   phone.onfocus = function(){
     this.nextElementSibling.innerHTML = '请输入合法的手机号';
     this.nextElementSibling.className = 'msg-default';
+  }
+
+  /*将表单封装成json*/
+  $.fn.serializeObject = function()
+  {
+      var o = {};
+      var a = this.serializeArray();
+      $.each(a, function() {
+          if (o[this.name]) {
+              if (!o[this.name].push) {
+                  o[this.name] = [o[this.name]];
+              }
+              o[this.name].push(this.value || '');
+          } else {
+              o[this.name] = this.value || '';
+          }
+      });
+      return o;
+  };
+  function register() {
+      var formInfo = $("#form-register").serializeObject();
+      var userInfo = JSON.stringify(formInfo);
+      $.ajax({
+          "url":"${ctx}/user/register.do",
+          "data":"userInfo="+userInfo,
+          "type":"POST",
+          "dataType":"json",
+          "success":function(data){
+             alert(data.message);
+          }
+      });
+      location.href='${ctx}/user/showLogin.do';
   }
 </script>
 </body>

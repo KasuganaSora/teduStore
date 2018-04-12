@@ -1,0 +1,5 @@
+# Set default behaviour, in case users don't have core.autocrlf set.
+*.html linguist-language=java
+*.jsp linguist-language=java
+*.js linguist-language=java
+*.css linguist-language=java

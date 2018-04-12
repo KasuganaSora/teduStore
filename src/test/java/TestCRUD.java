@@ -61,4 +61,19 @@ public class TestCRUD {
             System.out.println("用户名已存在");
         }
     }
+
+    @Test
+    public void get() {
+        int m_x = 100 / 5;
+        int m_y = 100 / 3;
+        for (int x = 1; x <= m_x ; x++) {
+            for (int y = 1; y <= m_y ; y++) {
+                int z = 100 - x - y;
+                if (z % 3 == 0&& 5*x+3*y+z/3==100){
+                    System.out.println(x+","+y+","+z);
+                }
+            }
+        }
+    }
+
 }
