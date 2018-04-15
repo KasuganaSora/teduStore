@@ -1,5 +1,6 @@
 package cn.tedu.store.controller;
 
+import cn.tedu.store.interceptor.AuthUser;
 import cn.tedu.store.bean.ResponseResult;
 import cn.tedu.store.bean.User;
 import cn.tedu.store.service.IUserService;
@@ -37,12 +38,14 @@ public class UserController extends BaseController{
         return modelAndView;
     }
 
+    @AuthUser
     @RequestMapping("showPersonalInfo.do")
     public ModelAndView showPersonalInfo(ModelAndView modelAndView) {
         modelAndView.setViewName("personage");
         return modelAndView;
     }
 
+    @AuthUser
     @RequestMapping("showPersonPassword.do")
     public ModelAndView showPersonPassword(ModelAndView modelAndView) {
         modelAndView.setViewName("personal_password");
@@ -161,6 +164,7 @@ public class UserController extends BaseController{
         }
     }
 
+    @AuthUser
     @RequestMapping("updatePassword.do")
     public String updatePassword(HttpSession session , String pwdInfo) {
         ResponseResult<Void> result = new ResponseResult<>();
@@ -171,6 +175,7 @@ public class UserController extends BaseController{
             UserService.updatePassword(this.getId(session), oldPwd, newPwd);
             result.setStatus(1);
             result.setMessage("修改密码成功");
+            session.invalidate();
         } catch (UserNotFoundException | PasswordNotMatchException e) {
             result.setStatus(0);
             result.setMessage(e.getMessage());
@@ -178,6 +183,35 @@ public class UserController extends BaseController{
         return JSONObject.toJSONString(result);
     }
 
+    @AuthUser
+    @RequestMapping("updateUser.do")
+    public String updateUser(HttpSession session, String userInfo) {
+        ResponseResult<Void> result = new ResponseResult<>();
+        JSONObject jsonObject = JSONObject.parseObject(userInfo);
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
+        String phone = jsonObject.getString("phone");
+        String email = jsonObject.getString("email");
+        User user = new User();
+        user.setId(this.getId(session));
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setPhone(phone);
+        user.setEmail(email);
+        user.setModifiedTime(new Date());
+        user.setModifiedUser(username);
+        try {
+            UserService.updateUser(user);
+            result.setStatus(1);
+            result.setMessage("成功");
+            session.setAttribute("user",user);
+        } catch (Exception e) {
+            result.setStatus(0);
+            result.setMessage(e.getMessage());
+        }
+
+        return JSONObject.toJSONString(result);
+    }
 
 
 }

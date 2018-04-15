@@ -24,6 +24,11 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <mvc:interceptors>
+        <bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
+    </mvc:interceptors>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/web/"/>
         <property name="suffix" value=".jsp"/>

@@ -10,7 +10,7 @@
 }
 .rs_header>span{
     display: inline-block;
-    width: 100px;
+    width: 130px;
     height: 100%;
     text-align: center;
     line-height: 36px;
@@ -144,7 +144,7 @@
 /*****��ַ����***/
 .address_title{
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 5px;
 }
 .red{
     color: red;

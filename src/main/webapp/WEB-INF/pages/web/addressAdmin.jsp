@@ -1,33 +1,18 @@
-<!DOCTYPE html>
+<%@page pageEncoding="UTF-8" language="java" contentType="text/html; UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="ctx" value="${pageContext.request.getContextPath()}"/>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>我的订单 - 达内学子商城</title>
-    <link href="../css/orders.css" rel="stylesheet"/>
-    <link href="../css/header.css" rel="stylesheet"/>
-    <link href="../css/footer.css" rel="stylesheet"/>
-    <link href="../css/personage.css" rel="stylesheet" />
+    <link href="${ctx}/css/orders.css" rel="stylesheet"/>
+    <link href="${ctx}/css/header.css" rel="stylesheet"/>
+    <link href="${ctx}/css/footer.css" rel="stylesheet"/>
+    <link href="${ctx}/css/personage.css" rel="stylesheet" />
 </head>
 <body>
 <!-- 页面顶部-->
-<header id="top" class="fixed_nav">
-    <div id="logo" class="lf">
-        <img class="animated jello" src="../images/header/logo.png" alt="logo"/>
-    </div>
-    <div id="top_input" class="lf">
-        <input id="input" type="text" placeholder="请输入您要搜索的内容"/>
-        <a href="search.html" class="rt"><img id="search" src="../images/header/search.png" alt="搜索"/></a>
-    </div>
-    <div class="rt">
-        <ul class="lf">
-            <li><a href="favorites.html" title="我的收藏"><img class="care" src="../images/header/care.png" alt=""/></a><b>|</b></li>
-            <li><a href="orders.html" title="我的订单"><img class="order" src="../images/header/order.png" alt=""/></a><b>|</b></li>
-            <li><a href="cart.html" title="我的购物车"><img class="shopcar" src="../images/header/shop_car.png" alt=""/></a><b>|</b></li>
-            <li><a href="help.html">帮助</a><b>|</b></li>
-            <li><a href="login.html">登录</a></li>
-        </ul>
-    </div>
-</header>
+<c:import url="head.jsp"/>
 <!-- nav主导航-->
 <nav id="nav">
     <ul>
@@ -44,55 +29,12 @@
 </div>
 <!--我的订单内容区域 #container-->
 <div id="container" class="clearfix">
-    <!-- 左边栏-->
-    <div id="leftsidebar_box" class="lf">
-        <div class="line"></div>
-        <dl class="my_order">
-            <dt >我的订单
-                <img src="../images/myOrder/myOrder2.png">
-            </dt>
-            <dd class="first_dd"><a href="orders.html">全部订单</a></dd>
-            <dd>
-                <a href="#">
-                    待付款
-                    <span><!--待付款数量--></span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">
-                    待收货
-                    <span><!--待收货数量-->1</span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">
-                    待评价<span><!--待评价数量--></span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">退货退款</a>
-            </dd>
-        </dl>
-
-        <dl class="footMark">
-            <dt >我的优惠卷<img src="../images/myOrder/myOrder1.png"></dt>
-        </dl>
-        <dl class="address">
-                <dt>收货地址<img src="../images/myOrder/myOrder1.png"></dt>
-				<dd><a href="addressAdmin.html">地址管理</a></dd>
-        </dl>
-       <dl class="count_managment">
-            <dt >帐号管理<img src="../images/myOrder/myOrder1.png"></dt>
-            <dd class="first_dd"><a href="personage.html">我的信息</a></dd>
-            <dd><a href="personal_icon.html">个人头像</a></dd>
-            <dd><a href="personal_password.html">安全管理</a></dd>
-        </dl>
-    </div>
+    <c:import url="leftNav.jsp"/>
    <!-- 右边栏-->
     <div class="rightsidebar_box rt">	
         <!--标题栏-->
         <div class="rs_header">
-            <span class="address_title">收获地址管理</span>
+            <span class="address_title">收货地址管理</span>
         </div>
         <!--收货人信息填写栏-->
         <div class="rs_content">
@@ -174,22 +116,22 @@
 <!-- 品质保障，私人定制等-->
 <div id="foot_box">
     <div class="icon1 lf">
-        <img src="../images/footer/icon1.png" alt=""/>
+        <img src="${ctx}/images/footer/icon1.png" alt=""/>
 
         <h3>品质保障</h3>
     </div>
     <div class="icon2 lf">
-        <img src="../images/footer/icon2.png" alt=""/>
+        <img src="${ctx}/images/footer/icon2.png" alt=""/>
 
         <h3>私人定制</h3>
     </div>
     <div class="icon3 lf">
-        <img src="../images/footer/icon3.png" alt=""/>
+        <img src="${ctx}/images/footer/icon3.png" alt=""/>
 
         <h3>学员特供</h3>
     </div>
     <div class="icon4 lf">
-        <img src="../images/footer/icon4.png" alt=""/>
+        <img src="${ctx}/images/footer/icon4.png" alt=""/>
 
         <h3>专属特权</h3>
     </div>
@@ -198,8 +140,8 @@
 <div class="foot_bj">
     <div id="foot">
         <div class="lf">
-             <p class="footer1"><img src="../images/footer/logo.png" alt="" class=" footLogo"/></p>
-             <p class="footer2"><img src="../images/footer/footerFont.png" alt=""/></p>
+             <p class="footer1"><img src="${ctx}/images/footer/logo.png" alt="" class=" footLogo"/></p>
+             <p class="footer2"><img src="${ctx}/images/footer/footerFont.png" alt=""/></p>
         </div>
         <div class="foot_left lf">
             <ul>
@@ -218,18 +160,18 @@
                 <li><a href="#">关于达内</a></li>
                 <li><a href="#">联系我们</a></li>
                 <li>
-                    <img src="../images/footer/wechat.png" alt=""/>
-                    <img src="../images/footer/sinablog.png" alt=""/>
+                    <img src="${ctx}/images/footer/wechat.png" alt=""/>
+                    <img src="${ctx}/images/footer/sinablog.png" alt=""/>
                 </li>
             </ul>
         </div>
         <div class="service">
             <p>学子商城客户端</p>
-            <img src="../images/footer/ios.png" class="lf">
-            <img src="../images/footer/android.png" alt="" class="lf"/>
+            <img src="${ctx}/images/footer/ios.png" class="lf">
+            <img src="${ctx}/images/footer/android.png" alt="" class="lf"/>
         </div>
         <div class="download">
-            <img src="../images/footer/erweima.png">
+            <img src="${ctx}/images/footer/erweima.png">
         </div>
 		<!-- 页面底部-备案号 #footer -->
         <div class="record">
@@ -238,16 +180,30 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
-<script src="../js/jquery.page.js"></script>
-<script type="text/javascript" src="../js/orders.js"></script>
-<script type="text/javascript" src="../js/distpicker.data.js"></script>
-<script type="text/javascript" src="../js/distpicker.js"></script>
-<script type="text/javascript" src="../js/personal.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery-3.1.1.min.js"></script>
+<script src="${ctx}/js/jquery.page.js"></script>
+<script type="text/javascript" src="${ctx}/js/orders.js"></script>
+<script type="text/javascript" src="${ctx}/js/distpicker.data.js"></script>
+<script type="text/javascript" src="${ctx}/js/distpicker.js"></script>
+<script type="text/javascript" src="${ctx}/js/personal.js"></script>
 <script type="text/javascript">
 	$(".lxdh_normal").each(function(i,e) {
 		var phone = $(e).html();
 		$(e).html(changePhone(phone));
 	});
+
+</script>
+<script type="text/javascript">
+    $(function(){
+        //所有的dd隐藏
+        $("#leftsidebar_box dd").hide();
+        //让账号管理显示
+        $("#leftsidebar_box .address dd").show();
+        //所有的自定义列表的标题后边的图片 myOrder2.png
+        $("#leftsidebar_box dt img").attr("src","${ctx}/images/myOrder/myOrder2.png");
+        //设置账号管理的图片和其他的三个不相同
+        $("#leftsidebar_box .count_managment").find('img').attr("src","${ctx}/images/myOrder/myOrder1.png");
+
+    });
 </script>
 </html>

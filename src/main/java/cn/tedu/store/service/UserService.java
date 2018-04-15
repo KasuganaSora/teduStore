@@ -2,9 +2,7 @@ package cn.tedu.store.service;
 
 import cn.tedu.store.bean.User;
 import cn.tedu.store.mapper.UserMapper;
-import cn.tedu.store.service.ex.PasswordNotMatchException;
-import cn.tedu.store.service.ex.UserAlreadyExistException;
-import cn.tedu.store.service.ex.UserNotFoundException;
+import cn.tedu.store.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +53,18 @@ public class UserService implements IUserService {
             throw new PasswordNotMatchException("原密码错误");
         }
         user.setPassword(newPwd);
+        userMapper.updateUserById(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        if (!checkUsername(user.getUsername())) {
+            throw new UserAlreadyExistException("用户名以存在");
+        } else if (!checkUsername(user.getEmail())) {
+            throw new EmailAlreadyExistException("邮箱以存在");
+        } else if (!checkPhone(user.getPhone())) {
+            throw new PhoneAlreadyExistException("手机号已存在");
+        }
         userMapper.updateUserById(user);
     }
 

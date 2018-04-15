@@ -38,6 +38,11 @@ public interface IUserService {
     public void updatePassword(Integer id, String oldPwd, String newPwd);
 
     /**
+     *  更新用户;
+     */
+    public void updateUser(User user);
+
+    /**
      * 检查email
      * @param email
      * @return

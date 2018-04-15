@@ -72,15 +72,19 @@ public class TestCRUD {
         user.setModifiedUser("admin");
         user.setModifiedTime(new Date());
         userService.updateUserById(user);
-<<<<<<< HEAD
     }
 
     @Test
     public void updatePasswordById() {
         userService.updatePassword(1,"122","123456");
+    }
 
-=======
->>>>>>> b155667df960e6e4d7ec8733b5027c6c08a51dc0
+    @Test
+    public void updateUserAll() {
+        User user = new User();
+        user.setUsername("张三");
+        user.setPassword("112233");
+        userService.updateUser(user);
     }
 
 

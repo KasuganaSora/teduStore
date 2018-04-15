@@ -8,7 +8,7 @@
     <link href="${ctx}/css/orders.css" rel="Stylesheet"/>
     <link href="${ctx}/css/header.css" rel="Stylesheet"/>
     <link href="${ctx}/css/footer.css" rel="Stylesheet"/>
-    <link href="${ctx}/css/personage.css" rel="stylesheet" />
+    <link href="${ctx}/css/personage.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- 页面顶部-->
@@ -17,8 +17,8 @@
 <nav id="nav">
     <ul>
         <li><a href="index.html" class="acti">首页</a></li>
-        <li><a href="index.html#computer" >电脑办公</a></li>
-        <li><a href="index.html#stationery" >办公文具</a></li>
+        <li><a href="index.html#computer">电脑办公</a></li>
+        <li><a href="index.html#stationery">办公文具</a></li>
     </ul>
 </nav>
 <!-- 我的订单导航栏-->
@@ -29,74 +29,37 @@
 </div>
 <!--我的订单内容区域 #container-->
 <div id="container" class="clearfix">
-    <!-- 左边栏-->
-    <div id="leftsidebar_box" class="lf">
-        <div class="line"></div>
-        <dl class="my_order">
-            <dt >我的订单
-                <img src="${ctx}/images/myOrder/myOrder2.png">
-            </dt>
-            <dd class="first_dd"><a href="orders.html">全部订单</a></dd>
-            <dd>
-                <a href="#">
-                    待付款
-                    <span><!--待付款数量--></span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">
-                    待收货
-                    <span><!--待收货数量-->1</span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">
-                    待评价<span><!--待评价数量--></span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">退货退款</a>
-            </dd>
-        </dl>
-
-        <dl class="footMark">
-            <dt >我的优惠卷<img src="${ctx}/images/myOrder/myOrder1.png"></dt>
-        </dl>
-        <dl class="address">
-                <dt>收货地址<img src="${ctx}/images/myOrder/myOrder1.png"></dt>
-				<dd><a href="addressAdmin.html">地址管理</a></dd>
-            </dl>
-            <dl class="count_managment">
-                <dt >帐号管理<img src="${ctx}/images/myOrder/myOrder1.png"></dt>
-                <dd class="first_dd"><a href="${ctx}/user/showPersonalInfo.do">我的信息</a></dd>
-                <dd><a href="${ctx}/user/showPersonPassword.do">安全管理</a></dd>
-            </dl>
-    </div>
+    <c:import url="leftNav.jsp"/>
     <!-- 右边栏-->
     <!--个人信息头部-->
     <div class="rightsidebar_box rt">
         <div class="rs_header">
-            <span ><a href="${ctx}/user/showPersonalInfo.do">我的信息</a></span>
+            <span><a href="${ctx}/user/showPersonalInfo.do">我的信息</a></span>
             <span class="rs_header_active"><a href="${ctx}/user/showPersonPassword.do">安全管理</a></span>
         </div>
 
         <!--安全管理 -->
-        <div class="rs_content">
-            <p class="change_password_title">更改密码</p>
-            <div class="new_password">
-                <span class="word">输入旧密码：</span><input type="password"/><span class="change_hint"></span>
+        <form id="pwd-form">
+            <div class="rs_content">
+                <p class="change_password_title">更改密码</p>
+                <div class="new_password">
+                    <span class="word">输入旧密码：</span><input type="password" name="oldPwd" id="oldPwd"/><span
+                        class="change_hint" id="oldPwdMsg"></span>
+                </div>
+                <div class="new_password">
+                    <span class="word">输入新密码：</span><input type="password" name="newPwd" id="newPwd"/><span
+                        class="change_hint" id="newPwdMsg"></span>
+                </div>
+                <div class="confirm_password">
+                    <span class="word">确认新密码：</span><input type="password" name="confirmPwd" id="confirmPwd"/><span
+                        class="confirm_hint" id="confirmPwdMsg"></span>
+                </div>
+                <div class="save_password" id="savePwd">
+                    保存更改
+                </div>
+                <span id="errorMsg"></span>
             </div>
-            <div class="new_password">
-                <span class="word">输入新密码：</span><input type="password"/><span class="change_hint"></span>
-            </div>
-            <div class="confirm_password">
-                <span class="word">确认新密码：</span><input type="password"/><span class="confirm_hint"></span>
-            </div>
-            <div class="save_password">
-                保存更改
-            </div>
-        </div>
-
+        </form>
 
     </div>
 </div>
@@ -128,8 +91,8 @@
 <div class="foot_bj">
     <div id="foot">
         <div class="lf">
-             <p class="footer1"><img src="${ctx}/images/footer/logo.png" alt="" class=" footLogo"/></p>
-             <p class="footer2"><img src="${ctx}/images/footer/footerFont.png" alt=""/></p>
+            <p class="footer1"><img src="${ctx}/images/footer/logo.png" alt="" class=" footLogo"/></p>
+            <p class="footer2"><img src="${ctx}/images/footer/footerFont.png" alt=""/></p>
         </div>
         <div class="foot_left lf">
             <ul>
@@ -161,7 +124,7 @@
         <div class="download">
             <img src="${ctx}/images/footer/erweima.png">
         </div>
-		<!-- 页面底部-备案号 #footer -->
+        <!-- 页面底部-备案号 #footer -->
         <div class="record">
             &copy;2017 达内集团有限公司 版权所有 京ICP证xxxxxxxxxxx
         </div>
@@ -173,4 +136,103 @@
 <script src="${ctx}/js/index.js"></script>
 <script src="${ctx}/js/jquery.page.js"></script>
 <script type="text/javascript" src="${ctx}/js/orders.js"></script>
+<script type="text/javascript">
+    function checkPasswordLength(pwd) {
+        return pwd.length >= 6 && pwd.length <= 9;
+    }
+
+    //验证新密码和确认密码是否一致
+    function checkPasswordEquals() {
+        var newPwdValue = $("#newPwd").val();
+        var confirmPwdValue = $("#confirmPwd").val();
+        return newPwdValue == confirmPwdValue;
+
+    }
+
+    $("#oldPwd").blur(function () {
+        if (checkPasswordLength($("#oldPwd").val())) {
+            $("#oldPwdMsg").html("密码格式正确");
+            $("#oldPwdMsg").css("color", "green");
+        } else {
+            $("#oldPwdMsg").html("密码格式不正确");
+            $("#oldPwdMsg").css("color", "red");
+        }
+    });
+    $("#newPwd").blur(function () {
+        if (checkPasswordLength($("#newPwd").val())) {
+            $("#newPwdMsg").html("密码格式正确");
+            $("#newPwdMsg").css("color", "green");
+        } else {
+            $("#newPwdMsg").html("密码格式不正确");
+            $("#newPwdMsg").css("color", "red");
+        }
+    });
+    $("#confirmPwd").blur(function () {
+        if (checkPasswordLength($("#confirmPwd").val())) {
+            $("#confirmPwdMsg").html("密码格式正确");
+            $("#confirmPwdMsg").css("color", "green");
+        } else {
+            $("#confirmPwdMsg").html("密码格式不正确");
+            $("#confirmPwdMsg").css("color", "red");
+        }
+    });
+</script>
+<script type="text/javascript">
+    /*将表单封装成json*/
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    $("#savePwd").click(function () {
+        if (!checkPasswordLength($("#oldPwd").val()) &&
+            checkPasswordLength($("#newPwd").val()) &&
+            checkPasswordLength($("#confirmPwd").val()) &&
+            checkPasswordEquals()) {
+            return;
+        }
+        var formInfo = $("#pwd-form").serializeObject();
+        var pwdInfo = JSON.stringify(formInfo);
+        $.ajax({
+            "url":"${ctx}/user/updatePassword.do",
+            "data":"pwdInfo="+pwdInfo,
+            "type":"POST",
+            "dataType":"json",
+            "success":function(data){
+                if (data.status == "0") {
+                    $("#errorMsg").attr("color","red");
+                    $("#errorMsg").text(data.message);
+                    return;
+                } else {
+                    alert("将要回到登录界面");
+                }
+                location.href='${ctx}/user/showLogin.do';
+            }
+        })
+    })
+</script>
+<script type="text/javascript">
+    $(function(){
+        //所有的dd隐藏
+        $("#leftsidebar_box dd").hide();
+        //让账号管理显示
+        $("#leftsidebar_box .count_managment dd").show();
+        //所有的自定义列表的标题后边的图片 myOrder2.png
+        $("#leftsidebar_box dt img").attr("src","${ctx}/images/myOrder/myOrder2.png");
+        //设置账号管理的图片和其他的三个不相同
+        $("#leftsidebar_box .count_managment").find('img').attr("src","${ctx}/images/myOrder/myOrder1.png");
+
+    });
+</script>
 </html>
